@@ -112,7 +112,7 @@ static int dragon(int C, char *A[])
       W[0][1]= ((uint64_t)c<<32|d) ^ W[5][1];
       M= (uint64_t)e<<32 | f;
    }
-   for (i=0;  i<32;  i+=2)  q= ((uint64_t*)W)[i/2], B[i]= q, B[i+1]= q>>32;
+   for (i=0;  i<8;  i+=1)  B[4*i]= W[i][0]>>32, B[4*i+1]= W[i][0], B[4*i+2] = W[i][1]>>32, B[4*i+3] = W[i][1];
    int nb=0, nk=0, wr=16;
    while (1)  { uint64_t k, buf[2*1024];
       a= B[0]; b= B[9]; c= B[16]; d= B[19]; e= B[30]^M>>32; f= B[31]^M;
