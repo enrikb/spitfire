@@ -82,7 +82,7 @@ static int dragon(int C, char *A[])
                    for (nb=i=0;  i<64;  nb+=i&1,++i)  {
                       h= Chex[ap[i]]-1;
                       if (!(i&1))  m =h, m<<=4;
-                      else         m|=h, P[nb/8]|= (uint64_t)m<<8*(nb%8);
+                      else         m|=h, P[nb/8]|= (uint64_t)m<<8*((31-nb)%8);
                    }
                    break;
         case  32:  for (i=0;  i<32;  ++i)  P[i/8]|= ap[i]<<8*(i%8);
