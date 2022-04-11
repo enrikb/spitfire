@@ -117,8 +117,8 @@ static int dragon(int C, char *A[])
    while (1)  { uint64_t k, buf[2*1024];
       a= B[0]; b= B[9]; c= B[16]; d= B[19]; e= B[30]^M>>32; f= B[31]^M;
       UPDATE_F();
-      B[0]= b; B[1]= c;
       for (i=31;  i>1;  --i)  B[i]= B[i-2];
+      B[0]= b; B[1]= c;
       M+= 1;
       k= (uint64_t)a<<32 | e;
       if (DRAGON_TEST>0)  {
