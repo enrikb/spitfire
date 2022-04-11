@@ -71,7 +71,7 @@ static int dragon(int C, char *A[])
    if (!pass&&DRAGON_TEST==0)  return 0;
    if (C!=5)  dragE(args, 1);
    for (i=0;  i<4;  ++i)  K[i]=I[i]= 0;
-   for (p=1;  p<3;  ++p)  { char *ap, h, m; uint64_t *P; unsigned nb;
+   for (p=1;  p<3;  ++p)  { char *ap, h; unsigned m; uint64_t *P; unsigned nb;
       ap= A[p]; P= p==1 ?  K : I;
       for (h=1,i=0;  i<256+1&&ap[i];  ++i)  if (!Chex[ap[i]])  h=0;
       switch (i)  {
@@ -82,7 +82,7 @@ static int dragon(int C, char *A[])
                    for (nb=i=0;  i<64;  nb+=i&1,++i)  {
                       h= Chex[ap[i]]-1;
                       if (!(i&1))  m =h, m<<=4;
-                      else         m|=h, P[nb/8]|= m<<8*(nb%8);
+                      else         m|=h, P[nb/8]|= (uint64_t)m<<8*(nb%8);
                    }
                    break;
         case  32:  for (i=0;  i<32;  ++i)  P[i/8]|= ap[i]<<8*(i%8);
