@@ -123,7 +123,7 @@ static int dragon(int C, char *A[])
       k= (uint64_t)a<<32 | e;
       if (DRAGON_TEST>0)  {
         if (wr-->0)  {
-          for (i=0; i<8; ++i)  printf("%02hhX", (byte)(k>>8*i));
+          for (i=0; i<8; ++i)  printf("%02hhX", (byte)(k>>8*(7-i)));
           printf(wr%4==0?"\n":" ");  continue;
         }
         else  return 0;
