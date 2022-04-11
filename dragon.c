@@ -40,9 +40,7 @@ static void noret dragE(const char *es, int e)
       a^= S2[b>>24&255] ^ S2[b>>16&255] ^ S2[b>>8&255] ^ S1[b&255]; \
       c^= S2[d>>24&255] ^ S2[d>>16&255] ^ S1[d>>8&255] ^ S2[d&255]; \
       e^= S2[f>>24&255] ^ S1[f>>16&255] ^ S2[f>>8&255] ^ S2[f&255]; \
-      d+=a, f+=c, b+=e; c^=b, e^=d, a^=f; \
-      d= d<<16|d>>16, f= f<<16|f>>16, b= b<<16|b>>16; \
-      c= c<<16|c>>16, e= e<<16|e>>16, a= a<<16|a>>16;
+      d+=a, f+=c, b+=e; c^=b, e^=d, a^=f;
 
 static uint32_t const S1[], S2[];
 
