@@ -107,9 +107,9 @@ static int dragon(int C, char *A[])
       q= W[0][1]^W[6][1]^W[7][1]; c= q>>32, d= q;
       e= M>>32, f= M;
       UPDATE_F();
-      W[0][0]= ((uint64_t)c<<32|d) ^ W[4][0];
-      W[0][1]= ((uint64_t)a<<32|b) ^ W[4][1];
       for (q=7;  q>0;  --q)  W[q][0]= W[q-1][0], W[q][1]= W[q-1][1];
+      W[0][0]= ((uint64_t)a<<32|b) ^ W[5][0];
+      W[0][1]= ((uint64_t)c<<32|d) ^ W[5][1];
       M= (uint64_t)e<<32 | f;
    }
    for (i=0;  i<32;  i+=2)  q= ((uint64_t*)W)[i/2], B[i]= q, B[i+1]= q>>32;
