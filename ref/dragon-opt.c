@@ -78,7 +78,7 @@ void ECRYPT_keysetup(
            k | k' ^ iv' | iv | (k ^ iv') | k' | (k ^ iv) | iv' | (k' ^ iv)           
          */
         for (idx = 0; idx < 4; idx++) {
-            key_word = U8TO32_LITTLE(key + idx * 4);
+            key_word = U8TO32_BIG(key + idx * 4);
             
             ctx->nlfsr_word[0+idx]  = ctx->nlfsr_word[12+idx] = 
                 ctx->nlfsr_word[20+idx] = key_word;
@@ -86,11 +86,11 @@ void ECRYPT_keysetup(
                 
         /* then write k' */
         for (idx = 0; idx < 2; idx++) {
-            key_word = U8TO32_LITTLE(key + 8 + idx * 4 );
+            key_word = U8TO32_BIG(key + 8 + idx * 4 );
             ctx->nlfsr_word[4+idx] = ctx->nlfsr_word[16+idx] = 
                 ctx->nlfsr_word[28+idx] = key_word;
 
-            key_word = U8TO32_LITTLE(key + idx * 4);
+            key_word = U8TO32_BIG(key + idx * 4);
             ctx->nlfsr_word[6+idx] = ctx->nlfsr_word[18+idx] = 
                 ctx->nlfsr_word[30+idx] = key_word;
         }
@@ -103,7 +103,7 @@ void ECRYPT_keysetup(
            k | k ^ iv | {k ^ iv} | iv
          */
         for (idx = 0; idx < 8; idx++) {
-            key_word = U8TO32_LITTLE(key + idx * 4);
+            key_word = U8TO32_BIG(key + idx * 4);
 
             ctx->nlfsr_word[0+idx]  = ctx->nlfsr_word[8+idx] = key_word;
             ctx->nlfsr_word[16+idx] = key_word;
@@ -160,7 +160,7 @@ void ECRYPT_ivsetup(
     {
         /* write iv first */
         for (idx = 0; idx < 4; idx++) {
-            iv_word = U8TO32_LITTLE(iv + idx * 4);
+            iv_word = U8TO32_BIG(iv + idx * 4);
 
             ctx->nlfsr_word[8+idx]   = iv_word;
             ctx->nlfsr_word[20+idx] ^= iv_word;
@@ -169,13 +169,13 @@ void ECRYPT_ivsetup(
 
         /* then iv' */
         for (idx = 0; idx < 2; idx++) {
-            iv_word = U8TO32_LITTLE(iv + 8 + idx * 4);
+            iv_word = U8TO32_BIG(iv + 8 + idx * 4);
 
             ctx->nlfsr_word[ 4+idx] ^= iv_word;
             ctx->nlfsr_word[12+idx] ^= iv_word;
             ctx->nlfsr_word[24+idx]  = iv_word;
 
-            iv_word = U8TO32_LITTLE(iv + idx * 4);
+            iv_word = U8TO32_BIG(iv + idx * 4);
 
             ctx->nlfsr_word[ 6+idx] ^= iv_word;
             ctx->nlfsr_word[14+idx] ^= iv_word;
@@ -190,7 +190,7 @@ void ECRYPT_ivsetup(
            k | (k ^ iv) | {k ^ iv} | iv
          */
         for (idx = 0; idx < 8; idx++) {
-            iv_word = U8TO32_LITTLE(iv + idx * 4);
+            iv_word = U8TO32_BIG(iv + idx * 4);
 
             ctx->nlfsr_word[ 8 + idx] ^= iv_word;
             ctx->nlfsr_word[16 + idx] ^= (iv_word ^ 0xFFFFFFFF);
@@ -255,8 +255,8 @@ void ECRYPT_ivsetup(
                          d, loc_d, e, loc_e, f, loc_fb1, c1, c2, in, out)\
     BASIC_RND(ctx, a, loc_a, b, loc_b, c, loc_c, \
        d, loc_d, e, loc_e, f, loc_fb1, c1, c2) \
-    *(out++) = a ^ (f + c); \
-    *(out++) = e ^ (d + a);  
+    *(out++) = U32TO32_BIG(a ^ (f + c)); \
+    *(out++) = U32TO32_BIG(e ^ (d + a));  
 
 #define PROCESS_RND(ctx, a, loc_a, b, loc_b, c, loc_c, \
                          d, loc_d, e, loc_e, f, loc_fb1, c1, c2, in, out)\
