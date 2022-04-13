@@ -67,7 +67,7 @@ typedef struct
 	/* The NLFSR and counter comprise the state of Dragon */
 	u32  nlfsr_word[DRAGON_NLFSR_SIZE];
 
-#ifdef _DRAGON_OPT_
+#ifdef _DRAGON_OPT
 	u32  state_counter[2];
 #else
 	u64  state_counter;

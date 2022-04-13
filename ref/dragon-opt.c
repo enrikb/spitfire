@@ -7,6 +7,8 @@
  */
 #include <assert.h>
 
+#define _DRAGON_OPT
+
 #include "ecrypt-sync.h"
 #include "dragon-sboxes.c"
 
